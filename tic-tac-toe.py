@@ -1,3 +1,4 @@
+import random
 
 # create an empty list for markers (index 1–9 used)
 li = [" "] * 10
@@ -19,24 +20,46 @@ def check_win():
            (li[1]==li[5]==li[9]!=" ") or \
            (li[7]==li[5]==li[3]!=" ")
 
-player = "X"
-for turn in range(9):
+
+def takeposition():
+    # creating a placeholder for the position
     display(li)
-    move = int(input(f"Player {player}, choose (1-9): "))
+    position = None
 
-    if li[move] != " ":
-        print("That spot is taken! Try again.")
-        continue
+    # a loop till current input is in place
+    while not position:
 
+        # taking input - position
+        position = input("Enter position (1-9):")
+
+        # checking if the input is int
+        if not position.isnumeric():
+            # resetting the position if input not int
+            position = None
+        # checking input if it is in range (1 to 10)   
+        elif not int(position) in range(1,10):
+            # restting the position if input is not in range
+            position = None
+        # checking for blank space in the list    
+        elif not li[int(position)] == " ":
+            position = None
+        print("\n"*3)    
+    # returning the int type position as input is always in string        
+    return int(position)
+
+# main game
+
+player = "X"
+print("Welcome to Tic Tac Toe!")
+for i in range(9):
+    display(li)
+    move = takeposition()
     li[move] = player
 
     if check_win():
         display(li)
         print(f"Player {player} wins!")
         break
-
-    # switch player
-    player = "O" if player == "X" else "X"
 else:
     display(li)
     print("It's a draw!")
