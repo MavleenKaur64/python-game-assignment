@@ -47,6 +47,12 @@ def takeposition():
     # returning the int type position as input is always in string        
     return int(position)
 
+def ChangeMarker(marker):
+    """exchanging marker O - X"""
+    if marker == "X":
+        return "O"
+    return "X"  
+
 # main game
 
 player = "X"
@@ -60,6 +66,8 @@ for i in range(9):
         display(li)
         print(f"Player {player} wins!")
         break
+    player = ChangeMarker(player)
+    
 else:
     display(li)
     print("It's a draw!")
