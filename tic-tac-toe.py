@@ -79,3 +79,63 @@ for i in range(9):
 else:
     display(li)
     print("It's a draw!")
+
+
+#-------------------------------------------------------------------------------------------------
+           #GUI Version
+#-------------------------------------------------------------------------------------------------
+
+import tkinter as tk
+from tkinter import messagebox
+
+player = "X"
+
+def click(pos):
+    global player
+    if li[pos] == " ":
+        li[pos] = player
+        buttons[pos-1].config(text=player)
+        if check_win():
+            messagebox.showinfo("Result", f"Player {player} wins!")
+            reset()
+        elif " " not in li[1:]:
+            messagebox.showinfo("Result", "It's a draw!")
+            reset()
+        else:
+             player = ChangeMarker(player)
+             label.config(text=f"Player {player}'s turn")
+
+def reset():
+    global li, player
+    li = [" "] * 10
+    player = "X"
+    for b in buttons:
+        b.config(text=" ")
+    label.config(text=f"Player {player}'s turn")
+
+root = tk.Tk()
+root.title("tic-tac-toe")
+
+label = tk.Label(root, text=f"Player {player}'s turn", font=("Arial", 14))
+label.grid(row=0, column=0, columnspan=3)
+
+buttons=[]
+row = 1
+col = 0
+
+for i in range(1, 10):
+    b = tk.Button(root, text=" ", width=5, height=2, font=("Arial", 20),command=lambda i=i: click(i))
+    b.grid(row=row, column=col)
+    buttons.append(b)
+
+    col += 1
+    if col == 3:
+        col = 0
+        row += 1
+
+reset_button = tk.Button(root, text="Reset", font=("Arial", 12), command=reset)
+reset_button.grid(row=4, column=0, columnspan=3, pady=10)
+
+root.mainloop()
+
+#------------------------------------------------------------------------------------------------------------------------------------
