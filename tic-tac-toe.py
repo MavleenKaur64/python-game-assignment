@@ -23,7 +23,7 @@ def check_win():
 
 def takeposition():
     # creating a placeholder for the position
-    display(li)
+
     position = None
 
     # a loop till current input is in place
@@ -53,8 +53,15 @@ def ChangeMarker(marker):
         return "O"
     return "X"  
 
+def players_name():
+    player_1 = input("Enter your name-Player 1")
+    player_2 = input("Enter your name-Player 2")
+    return player_1,player_2
+
+
 # main game
 
+player_1,player_2 = players_name()
 player = "X"
 print("Welcome to Tic Tac Toe!")
 for i in range(9):
@@ -64,7 +71,8 @@ for i in range(9):
 
     if check_win():
         display(li)
-        print(f"Player {player} wins!")
+        winner_name = player_1 if player == "X" else player_2
+        print(f"Player {winner_name} ({player}) wins!")
         break
     player = ChangeMarker(player)
     
