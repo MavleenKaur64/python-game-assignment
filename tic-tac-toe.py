@@ -89,6 +89,7 @@ import tkinter as tk
 from tkinter import messagebox
 
 player = "X"
+li = [" "] * 10 
 
 def click(pos):
     global player
